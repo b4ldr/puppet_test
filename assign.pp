@@ -1,0 +1,2 @@
+$a = notify{'foo':}
+$a

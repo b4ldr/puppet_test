@@ -1,0 +1,3 @@
+service {'unbound':
+    ensure => 'present'
+}
