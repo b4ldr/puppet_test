@@ -8,3 +8,18 @@ if $true {
         owner => 'jbond'
     }
 }
+user { $name:
+    ensure   => $ensure,
+    comment  => "$email",
+    home     => "/home/$name",
+    password => $password,
+    shell    => $shell,
+    uid      => $uid,
+    gid      => $group,
+}
+if $groups {
+  User[$name] {
+    groups => $groups
+  }
+}
+
