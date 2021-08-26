@@ -18,18 +18,10 @@
 #notice($bar)
 $d = {'sda' => 'ssd', 'sdb' => 'ssd', 'sdc' => 'hdd'}
 $type_count = $d.reduce({'ssd'=> 0, 'hdd' => 0}) |$memo, $value| {
-  if $value[1] == 'ssd'{
-    $ssd = $memo['ssd'] + 1
-    $hdd = $memo['hdd']
-  } else {
-    $ssd = $memo['ssd']
-    $hdd = $memo['hdd'] + 1
+  $value[1] == 'ssd' ? {
+    true    => { 'hdd' => $memo['hdd'], 'ssd'  => $memo['ssd'] + 1 },
+    default => { 'hdd' => $memo['hdd'] + 1, 'ssd'  => $memo['ssd'] },
   }
-  $m = {
-    'hdd' => $hdd,
-    'ssd'  => $ssd,
-  }
-  $m
 }
 $type = ($type_count['ssd'] > $type_count['hdd']).bool2str('ssd', 'hdd')
 notice($type)
